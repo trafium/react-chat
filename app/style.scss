@@ -1,0 +1,162 @@
+@import 'styles/reset.css';
+@import 'styles/bootstrap.min.css';
+
+@mixin header-gradient() {
+   background: #1e5799; /* Old browsers */
+   background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 );
+}
+
+@mixin send-gradient() {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4b357+0,75890c+100;Olive+3D+%233 */
+   background: #a4b357; /* Old browsers */
+   background: -moz-linear-gradient(top,  #c4d85f 0%, #839a0c 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top,  #c4d85f 0%, #839a0c 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom,  #c4d85f 0%, #839a0c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin send-hover-gradient() {
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4b357+0,75890c+100;Olive+3D+%233 */
+   background: #a4b357; /* Old browsers */
+   background: -moz-linear-gradient(top,  #c4d85f 0%, #839a0c 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top,  #c4d85f 0%, #839a0c 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom,  #c4d85f 0%, #839a0c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin send-active-gradient() {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4b357+0,75890c+100;Olive+3D+%233 */
+   background: #a4b357; /* Old browsers */
+   background: -moz-linear-gradient(top,  #7c8e22 0%, #839a0c 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top,  #7c8e22 0%, #839a0c 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom,  #7c8e22 0%, #839a0c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 ); /* IE6-9 */
+}
+
+@mixin border-radius($radius) {
+   -webkit-border-radius: $radius;
+   -moz-border-radius: $radius;
+   border-radius: $radius;
+}
+
+@mixin box-shadow($params) {
+   -webkit-box-shadow: $params;
+   -moz-box-shadow: $params;
+   box-shadow: $params;
+}
+
+.row {
+   margin: 0;
+}
+
+.container {
+   padding: 0 15px;
+}
+
+[class*="col-"] {
+   padding: 0;
+}
+
+.chat-container {
+   margin-top: 16px;
+   overflow: hidden;
+   @include border-radius(4px);
+   @include box-shadow(1px 1px 10px rgba(#000, 0.4));
+}
+
+.chat_header {
+   padding: 8px 20px;
+   
+   color: #fff;
+   font-weight: bold;
+   @include header-gradient();
+   @include box-shadow(0 -4px 10px 4px rgba(#000, 0.4));
+   text-shadow: 1px 1px 1px rgba(#000, 0.7);
+}
+
+$inner-height: 300px;
+
+.messages-container {
+   height: $inner-height;
+   padding: 4px 0;
+   overflow-y: scroll;
+
+   .message {
+      padding: 1px 8px;
+      &:nth-child(2n-1) {
+         background: #f8f5fb;
+      }
+
+      .message-name {
+         font-weight: bold;
+      }
+   }
+}
+
+.users-container {
+   @include box-shadow(-2px 0 10px rgba(#000, 0.1));
+   padding: 4px 8px;
+   height: $inner-height;
+
+   .online-header {
+      font-weight: bold;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #eee;
+      .online-count {
+         color: #f54200;
+      }
+   }
+}
+
+.input-container {
+   $button-size: 64px;
+   $input-padding: 3px 6px;
+   padding: 4px;
+
+   .message-input {
+      box-sizing: border-box;
+      width: calc(100% - #{$button-size} - 4px);
+      padding: $input-padding;
+
+      @include border-radius(4px);
+      border: 1px solid #ccc;
+      &:focus {
+         outline: none;
+      }
+   }
+   .send-button {
+      display: inline-block;
+      transition: all ease-in 0.1s;
+
+      width: $button-size;
+      margin-left: 4px;
+      padding: 4px 6px;
+      text-align: center;
+
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px rgba(#000, 1);
+      
+      cursor: pointer;
+
+      @include send-gradient();
+      @include border-radius(4px);
+
+
+      &:hover {
+         text-decoration: none;
+         @include box-shadow(0px 2px 4px 0px rgba(#000, 0.3));
+         @include send-hover-gradient();
+      }
+
+      &:active {
+         color: #ccc;
+         @include box-shadow(0px 1px 4px 1px rgba(#000, 0.3) inset);
+         @include send-active-gradient();
+      }
+   }
+}
