@@ -33,7 +33,7 @@ export default class InputContainer extends React.Component {
       <div class="input-container">
          <input type="text" 
           class="message-input" 
-          placeholder="Сообщение..." 
+          placeholder="БУМы..." 
           value={this.state.message}
           onKeyDown={this.onEnter.bind(this)}
           onChange={this.onTextChange.bind(this)}/>
