@@ -1,23 +1,22 @@
 import React from 'react';
 
 export default class UsersContainer extends React.Component {
-
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.getUsers();
-  }
+  static defaultProps = {
+    users: []
+  };
 
   render() {
     let users = this.props.users.map((user) => {
-      return <li class="user">{user}</li>;
+      return <li class="user">{user.name}</li>;
     });
     return (
       <div class="users-container">
          <div class="online-header">
-            Currently online (<span class="online-count">1</span>):
+            Currently online (<span class="online-count">{this.props.count}</span>):
          </div>
          <ul class="users">
             {users}

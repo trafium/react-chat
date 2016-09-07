@@ -17,13 +17,16 @@ module.exports = {
       filename: "index_bundle.js"
    },
    devServer: {
-      inline: true
+      inline: true,
+      proxy: {
+         '*': 'http://localhost'
+      }
    },
    module: {
       loaders: [
          {  test: /\.js$/, 
-            exclude: /node_modules/, 
             loader: "babel-loader",
+            exclude: /node_modules/, 
             query: { presets: ['react', 'es2015', 'stage-0'],
                      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'] } 
          },

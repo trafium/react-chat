@@ -36,6 +36,14 @@
    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c',GradientType=0 ); /* IE6-9 */
 }
 
+@mixin message-alert-gradient() {
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#bfd255+0,8eb92a+62,72aa00+85,9ecb2d+100 */
+   background: #bfd255; /* Old browsers */
+   background: -moz-linear-gradient(top,  transparent 0%, #85b0ff 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top,  transparent 0%, #85b0ff 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom,  transparent 0%, #85b0ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 @mixin border-radius($radius) {
    -webkit-border-radius: $radius;
    -moz-border-radius: $radius;
@@ -46,6 +54,59 @@
    -webkit-box-shadow: $params;
    -moz-box-shadow: $params;
    box-shadow: $params;
+}
+
+@mixin button-styles() {
+   display: inline-block;
+   transition: all ease-in 0.1s;
+
+   padding: 4px 6px;
+   text-align: center;
+
+   color: #fff;
+   font-weight: bold;
+   text-shadow: 1px 1px 1px rgba(#000, 1);
+   
+   cursor: pointer;
+
+   @include border-radius(4px);
+
+
+   &:hover {
+      text-decoration: none;
+      @include box-shadow(0px 2px 4px 0px rgba(#000, 0.3));
+   }
+
+   &:active {
+      text-decoration: none;
+      color: #ccc;
+      @include box-shadow(0px 1px 4px 1px rgba(#000, 0.3) inset);
+   }
+
+   &:focus {
+      text-decoration: none;
+   }
+}
+
+@mixin button-success() {
+   @include send-gradient();
+   &:hover {
+      @include send-hover-gradient();
+   }
+   &:active {
+      @include send-active-gradient();
+   }
+}
+
+@mixin input-styles() {
+   box-sizing: border-box;
+   padding: 3px 6px;
+
+   @include border-radius(4px);
+   border: 1px solid #ccc;
+   &:focus {
+      outline: none;
+   }
 }
 
 .row {
@@ -69,29 +130,80 @@
 
 .chat_header {
    padding: 8px 20px;
+   position: relative;
    
    color: #fff;
    font-weight: bold;
    @include header-gradient();
    @include box-shadow(0 -4px 10px 4px rgba(#000, 0.4));
    text-shadow: 1px 1px 1px rgba(#000, 0.7);
+
+   .logout-button {
+      @include button-styles();
+      position: absolute;
+      top: 5px;
+      right: 5px;
+   }
 }
+
 
 $inner-height: 300px;
 
-.messages-container {
-   height: $inner-height;
-   padding: 4px 0;
-   overflow-y: scroll;
+.login-container {
+   text-align: center;
+   .login-form {
+      padding: 60px 0;
+      .name-input {
+         @include input-styles();
+      }
+      .enter-button {
+         @include button-styles();
+         @include button-success();
+         margin-left: 4px;
+      }
+   }
+}
 
-   .message {
-      padding: 1px 8px;
-      &:nth-child(2n-1) {
-         background: #f8f5fb;
+.messages-container {
+   position: relative;
+   .messages-list {
+      height: $inner-height;
+      padding: 4px 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      .message {
+         padding: 3px 8px;
+         &:nth-child(2n-1) {
+            background: #f8f5fb;
+         }
+
+         .message-name {
+            font-weight: bold;
+         }
+
+         .message-timestamp {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #aaa;
+         }
       }
 
-      .message-name {
-         font-weight: bold;
+   }
+   .message-alert {
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      @include message-alert-gradient();
+      font-size: 0.9em;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(#000, 1);
+      padding: 6px 0 4px;
+
+      &:hover {
+         cursor: pointer;
       }
    }
 }
@@ -114,49 +226,16 @@ $inner-height: 300px;
 
 .input-container {
    $button-size: 64px;
-   $input-padding: 3px 6px;
    padding: 4px;
 
    .message-input {
-      box-sizing: border-box;
+      @include input-styles();
       width: calc(100% - #{$button-size} - 4px);
-      padding: $input-padding;
-
-      @include border-radius(4px);
-      border: 1px solid #ccc;
-      &:focus {
-         outline: none;
-      }
    }
    .send-button {
-      display: inline-block;
-      transition: all ease-in 0.1s;
-
+      @include button-styles();
+      @include button-success();
       width: $button-size;
       margin-left: 4px;
-      padding: 4px 6px;
-      text-align: center;
-
-      color: #fff;
-      font-weight: bold;
-      text-shadow: 1px 1px 1px rgba(#000, 1);
-      
-      cursor: pointer;
-
-      @include send-gradient();
-      @include border-radius(4px);
-
-
-      &:hover {
-         text-decoration: none;
-         @include box-shadow(0px 2px 4px 0px rgba(#000, 0.3));
-         @include send-hover-gradient();
-      }
-
-      &:active {
-         color: #ccc;
-         @include box-shadow(0px 1px 4px 1px rgba(#000, 0.3) inset);
-         @include send-active-gradient();
-      }
    }
 }

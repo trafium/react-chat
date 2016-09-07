@@ -1,6 +1,18 @@
 import React from 'react';
 
-export default class InputContainer extends React.Component {
+import { connect } from 'react-redux';
+
+import { stopFetchingMessages, fetchMessages } from '../actions/messagesActions.js';
+
+@connect((store) => {
+  return {
+    fetching: store.messages.fetching
+  };
+})
+export default class MessageForm extends React.Component {
+  static propTypes = {
+    handleSubmit: React.PropTypes.func.isRequired
+  };
 
   constructor(props) {
     super(props);
@@ -22,7 +34,18 @@ export default class InputContainer extends React.Component {
     }
   }
 
+  onClick(event) {
+    event.preventDefault();
+    this.onSubmit();
+  }
+
   onSubmit() {
+    this.props.handleSubmit(this.state.message);
+    console.log(this.props.fetching);
+    if (!this.props.fetching) {
+      this.props.dispatch(stopFetchingMessages());
+      this.props.dispatch(fetchMessages());
+    }
     this.setState({
       message: '' 
     });
@@ -32,6 +55,7 @@ export default class InputContainer extends React.Component {
     return (
       <div class="input-container">
          <input type="text" 
+          autoFocus
           class="message-input" 
           placeholder="Сообщение..." 
           value={this.state.message}
@@ -39,7 +63,7 @@ export default class InputContainer extends React.Component {
           onChange={this.onTextChange.bind(this)}/>
          <a href="#" 
           class="send-button"
-          onClick={this.onSubmit.bind(this)}>Send</a>
+          onClick={this.onClick.bind(this)}>Send</a>
       </div>
     );
   }
